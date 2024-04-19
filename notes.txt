@@ -1,0 +1,159 @@
+CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+    ....
+);
+---------------------------------------------------
+
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Prevents actions that would destroy links between tablesDEFAULT - Sets a default value for a column if no value is specified
+CREATE INDEX - Used to create and retrieve data from the database very quickly
+
+-------------------
+MySQL CREATE VIEW Statement
+
+In SQL, a view is a virtual table based on 
+the result-set of an SQL statement.
+
+A view contains rows and columns, just like
+ a real table. The fields in a view are fields
+  from one or more real tables in the database.
+
+You can add SQL statements and functions 
+to a view and present the data as if the data 
+were coming from one single table.
+
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+select view:
+SELECT * FROM [view_name];
+
+
+
+
+---------------------------------
+FOREIGN KEY Creation:
+
+alter table Child_table_name add
+ constraint constraint_Name 
+ foreign key(Column_Name_Child_Table) 
+ references Parent_table_name(Primary_key_Parent_Table);
+
+alter table Child_table_name add 
+ foreign key(Column_Name_Child_Table) 
+ references Parent_table_name(Primary_key_Parent_Table);
+ --------------------------------
+
+ what is i see, I remember,
+
+ what i hear, I forget,
+
+ what i do , I understand.
+
+ Syntax for foreign key:
+
+ ALTER table Child_table_name
+
+
+ 
+ 
+
+ 
+Database users
+ ------------------------------
+ create users:
+ CREATE USER 'username'@'localhost' 
+ IDENTIFIED BY 'password';
+
+Grant permission:
+
+GRANT ALL PRIVILEGES ON 
+*.* TO 'username'@'localhost';
+
+GRANT SELECT ON database_name.* 
+TO 'username'@'localhost';
+
+GRANT SELECT ON database_name.* 
+TO 'username'@'localhost';
+
+View Permission:
+SHOW GRANTS FOR 'username'@'localhost';
+
+
+Drop User:
+DROP USER 'username'@'localhost';
+
+Remove privilleges: 
+
+REVOKE ALL PRIVILEGES ON database_name.* 
+FROM 'username'@'localhost';
+
+REVOKE SELECT ON database_name.* 
+FROM 'username'@'localhost';
+-------------------
+
+
+simple DB challenge
+----------------------------------
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    Salary DECIMAL(10, 2),
+    HireDate DATE
+);
+
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY AUTO_INCREMENT,
+    DepartmentName VARCHAR(50)
+);
+
+INSERT INTO Departments 
+(DepartmentName) VALUES
+('Human Resources'),('Finance'),
+('IT'),('Marketing'),('Operations');
+
+INSERT INTO Employees 
+(FirstName, LastName, DepartmentID, Salary,
+ HireDate) VALUES
+('John', 'Karim', 1, 50000.00, '2022-01-15'),
+('Jane', 'Mutesi', 2, 60000.00, '2021-03-10'),
+('Michael', 'Rulinda', 3, 70000.00, '2020-05-20'),
+('Emily', 'Kalisa', 3, 55000.00, '2019-11-25'),
+('David', 'Karenzi', 5, 80000.00, '2018-09-12');
+
+
+Challenges:
+--------------------------
+1. Retrieve the first and last names of all 
+employees along with their department names:
+
+2. Retrieve the total number of employees in 
+each department:
+
+3. Retrieve the names of employees who joined
+ the company in or after 2020, along with 
+ their hire dates:
+
+4. Retrieve the average salary of employees 
+in each department:
+
+5. Retrieve the highest salary among all
+ employees:
+
+------------------------------------------------------------------------
+
+1. select Employees.FirstName,Employees.LastName,Departments.DepartmentName from Employees INNER JOIN Departments ON  Employees.DepartmentID=Departments.DepartmentID; 
+2. select count(Employees.DepartmentID) as "Number In Dep",Departments.DepartmentName from Employees,Departments where Employees.DepartmentID=Departments.DepartmentID group by Employees.DepartmentID;
+3. select FirstName,LastName,HireDate from Employees where HireDate>'2019-12-31';
+4. select avg(salary) as 'average salary',Departments.DepartmentName from Employees,Departments where Employees.DepartmentID=Departments.DepartmentID group by Employees.DepartmentID;
+5. select max(salary) as "Highest Salary" from Employees;
+
