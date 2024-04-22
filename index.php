@@ -4,13 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="">
         <table>
-            
+            <thead>
+                <tr>
+                    <th colspan="100">Available School</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>School-Name</th>
+                    <th>School-Phone</th>
+                    <th>School-Principal</th>
+                </tr>
+            </thead>
+            <?php
+            include 'connection.php';
+            $query_select=mysqli_query($connect,"SELECT * from school");
+            while($schools=mysqli_fetch_array($query_select)){
+                ?>
+                <tr>
+                    <td><?php echo $schools['id'];?></td>
+                    <td><?php echo $schools['name'];?></td>
+                    <td><?php echo $schools['phone'];?></td>
+                    <td><?php echo $schools['principal'];?></td>
+                </tr>
+                <?php
+            }
+            ?>
         </table>
-        <form action="form.php" method="POST">
+        <form action="index.php" method="POST">
             <h3>Add Your School Here</h3>
             <p>
                 <label for="">School Name</label>
@@ -39,7 +64,7 @@
     values('$name','$phone','$principal')";
     $query_add=mysqli_query($connect,$query);
     if($query_add){
-        echo "Good Job, Added well!";
+        header("location:index.php");
     }
    }
     ?>

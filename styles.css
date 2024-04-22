@@ -1,3 +1,10 @@
+*{
+    font-family: arial;
+}
 table{
     width: 100vw;
+    border: 2px solid black;
+}
+td{
+    border: 1px solid black;
 }
