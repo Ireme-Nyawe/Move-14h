@@ -157,3 +157,4 @@ in each department:
 4. select avg(salary) as 'average salary',Departments.DepartmentName from Employees,Departments where Employees.DepartmentID=Departments.DepartmentID group by Employees.DepartmentID;
 5. select max(salary) as "Highest Salary" from Employees;
 
+condition?{true}:{False}

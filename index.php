@@ -23,6 +23,14 @@
             <?php
             include 'connection.php';
             $query_select=mysqli_query($connect,"SELECT * from school");
+            if(mysqli_num_rows($query_select)==0){
+                ?>
+                <tr>
+                    <td colspan="100">No data Found!</td>
+                </tr>
+                <?php
+
+            }
             while($schools=mysqli_fetch_array($query_select)){
                 ?>
                 <tr>
@@ -30,6 +38,10 @@
                     <td><?php echo $schools['name'];?></td>
                     <td><?php echo $schools['phone'];?></td>
                     <td><?php echo $schools['principal'];?></td>
+                    <td>
+                        <a href="delete.php?id=<?php echo $schools['id']?>">dalete</a>
+                        <a href="">update</a>
+                    </td>
                 </tr>
                 <?php
             }
@@ -60,8 +72,7 @@
     $name=$_POST['name'];
     $phone=$_POST['phone'];
     $principal=$_POST['principal'];
-    $query="INSERT into school(name,phone,principal)
-    values('$name','$phone','$principal')";
+    $query="INSERT into school(name,phone,principal) values('$name','$phone','$principal')";
     $query_add=mysqli_query($connect,$query);
     if($query_add){
         header("location:index.php");
