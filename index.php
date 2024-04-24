@@ -40,7 +40,7 @@
                     <td><?php echo $schools['principal'];?></td>
                     <td>
                         <a href="delete.php?id=<?php echo $schools['id']?>">dalete</a>
-                        <a href="">update</a>
+                        <a href="update.php?id=<?php echo $schools['id']?>">update</a>
                     </td>
                 </tr>
                 <?php
