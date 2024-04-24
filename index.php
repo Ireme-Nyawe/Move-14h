@@ -39,7 +39,8 @@
                     <td><?php echo $schools['phone'];?></td>
                     <td><?php echo $schools['principal'];?></td>
                     <td>
-                        <a href="delete.php?id=<?php echo $schools['id']?>">dalete</a>
+                        <a href="delete.php?id=<?php echo $schools['id']?>" 
+                        onclick="return confirm('Are you sure Abou Deleting <?php echo $schools['name']; ?>??')">dalete</a>
                         <a href="update.php?id=<?php echo $schools['id']?>">update</a>
                     </td>
                 </tr>
@@ -72,12 +73,62 @@
     $name=$_POST['name'];
     $phone=$_POST['phone'];
     $principal=$_POST['principal'];
-    $query="INSERT into school(name,phone,principal) values('$name','$phone','$principal')";
-    $query_add=mysqli_query($connect,$query);
-    if($query_add){
-        header("location:index.php");
+    $check=mysqli_query($connect,"SELECT * from school where name='$name'");
+   if(mysqli_num_rows($check)>0){
+    echo "Already added!";
+   }
+   else{
+
+       $query="INSERT into school(name,phone,principal) values('$name','$phone','$principal')";
+       $query_add=mysqli_query($connect,$query);
+       if($query_add){
+           header("location:index.php");
+        }
     }
    }
     ?>
+    <hr>
+    <form action="index.php" method="POST">
+            <h3>Add Trainee Here </h3>
+            <p>
+                <label for="">Name</label>
+                <input type="text" name="name">
+            </p>
+            <p>
+                <label for="">Gender</label>
+                <select name="gender" >
+                    <option value="">Select</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </p>
+            <p>
+                <label for="">School </label>
+                <select name="" id="">
+                    <option value="">Select Trainee School</option>
+                    <?php
+                    $get_schools=mysqli_query($connect,"SELECT * from school");
+                    while($schools=mysqli_fetch_array($get_schools)){
+                        ?>
+                        <option value="<?php echo $schools['id']?>"><?php echo $schools['name']?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </p>
+            <p>
+                <label for="">Email </label>
+                <input type="text" name="email">
+            </p>
+            <p>
+                <input type="submit" value="Add Trainee" name="add_trainee">
+            </p>
+
+            <?php
+            if(isset($_POST['add_trainee'])){
+                echo "clicked";
+            }
+            ?>
+        </form>
 </body>
 </html>
